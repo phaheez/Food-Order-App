@@ -1,3 +1,4 @@
+import { Tag } from './../../shared/models/Tag';
 import { Foods } from './../../shared/models/food';
 import { Injectable } from '@angular/core';
 
@@ -5,7 +6,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class FoodService {
-  constructor() {}
+  constructor() { }
 
   getAll(): Foods[] {
     return [
@@ -97,6 +98,29 @@ export class FoodService {
         imageUrl: 'assets/food-8.jpg',
         tags: ['FastFood', 'Pizza', 'Lunch'],
       },
+    ];
+  }
+
+  getAllFoodByTag(tag: string): Foods[] {
+    return tag == 'All'
+      ? this.getAll()
+      : this.getAll().filter(food => food.tags?.includes(tag));
+  }
+
+  getFoodById(id: number): Foods {
+    return this.getAll().find(food => food.id == id)!;
+  }
+
+  getAllTag(): Tag[] {
+    return [
+      { name: 'All', count: 8 },
+      { name: 'FastFood', count: 4 },
+      { name: 'Pizza', count: 3 },
+      { name: 'Lunch', count: 3 },
+      { name: 'SlowFood', count: 2 },
+      { name: 'Hamburger', count: 2 },
+      { name: 'Fry', count: 1 },
+      { name: 'Soup', count: 1 }
     ];
   }
 }
